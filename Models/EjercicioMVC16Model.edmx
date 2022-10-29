@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EjercicioMVC16Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EjercicioMVC16ModelStoreContainer">
+    <EntitySet Name="Flores" EntityType="EjercicioMVC16Model.Store.Flores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Especies" EntityType="EjercicioMVC16Model.Store.Especies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Agentes" EntityType="EjercicioMVC16Model.Store.Agentes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Poliniza" EntityType="EjercicioMVC16Model.Store.Poliniza" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EspecieFlor" Association="EjercicioMVC16Model.Store.EspecieFlor">
+      <End Role="Especie" EntitySet="Especies" />
+      <End Role="Flor" EntitySet="Flores" />
+    </AssociationSet>
+    <AssociationSet Name="FlorPoliniza" Association="EjercicioMVC16Model.Store.FlorPoliniza">
+      <End Role="Flor" EntitySet="Flores" />
+      <End Role="Poliniza" EntitySet="Poliniza" />
+    </AssociationSet>
+    <AssociationSet Name="AgentePoliniza" Association="EjercicioMVC16Model.Store.AgentePoliniza">
+      <End Role="Agente" EntitySet="Agentes" />
+      <End Role="Poliniza" EntitySet="Poliniza" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Flores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nchar" Nullable="false" MaxLength="3" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Fotografia" Type="varbinary(max)" Nullable="true" />
+    <Property Name="EspecieId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Especies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EpcFloración" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EstPlantacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TpSuelo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TmpExposicion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Agentes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubTipo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Poliniza">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reclamo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FlorId" Type="int" Nullable="false" />
+    <Property Name="AgenteId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EspecieFlor">
+    <End Role="Especie" Type="EjercicioMVC16Model.Store.Especies" Multiplicity="1" />
+    <End Role="Flor" Type="EjercicioMVC16Model.Store.Flores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Flor">
+        <PropertyRef Name="EspecieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FlorPoliniza">
+    <End Role="Flor" Type="EjercicioMVC16Model.Store.Flores" Multiplicity="1" />
+    <End Role="Poliniza" Type="EjercicioMVC16Model.Store.Poliniza" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Poliniza">
+        <PropertyRef Name="FlorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AgentePoliniza">
+    <End Role="Agente" Type="EjercicioMVC16Model.Store.Agentes" Multiplicity="1" />
+    <End Role="Poliniza" Type="EjercicioMVC16Model.Store.Poliniza" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Poliniza">
+        <PropertyRef Name="AgenteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EjercicioMVC16Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="EjercicioMVC16ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Flores" EntityType="EjercicioMVC16Model.Flor" />
+          <EntitySet Name="Especies" EntityType="EjercicioMVC16Model.Especie" />
+          <EntitySet Name="Agentes" EntityType="EjercicioMVC16Model.Agente" />
+          <AssociationSet Name="EspecieFlor" Association="EjercicioMVC16Model.EspecieFlor">
+            <End Role="Especie" EntitySet="Especies" />
+            <End Role="Flor" EntitySet="Flores" />
+          </AssociationSet>
+          <EntitySet Name="Poliniza" EntityType="EjercicioMVC16Model.Poliniza" />
+          <AssociationSet Name="FlorPoliniza" Association="EjercicioMVC16Model.FlorPoliniza">
+            <End Role="Flor" EntitySet="Flores" />
+            <End Role="Poliniza" EntitySet="Poliniza" />
+          </AssociationSet>
+          <AssociationSet Name="AgentePoliniza" Association="EjercicioMVC16Model.AgentePoliniza">
+            <End Role="Agente" EntitySet="Agentes" />
+            <End Role="Poliniza" EntitySet="Poliniza" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Flor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" FixedLength="true" MaxLength="3" />
+          <Property Name="Nombre" Type="String" Nullable="false" FixedLength="false" MaxLength="50" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" />
+          <Property Name="Fotografia" Type="Binary" Nullable="true" />
+          <NavigationProperty Name="Especie" Relationship="EjercicioMVC16Model.EspecieFlor" FromRole="Flor" ToRole="Especie" />
+          <Property Name="EspecieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Poliniza" Relationship="EjercicioMVC16Model.FlorPoliniza" FromRole="Flor" ToRole="Poliniza" />
+        </EntityType>
+        <EntityType Name="Especie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="EpcFloración" Type="String" Nullable="false" />
+          <Property Name="EstPlantacion" Type="String" Nullable="false" />
+          <Property Name="TpSuelo" Type="String" Nullable="false" />
+          <Property Name="TmpExposicion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Flor" Relationship="EjercicioMVC16Model.EspecieFlor" FromRole="Especie" ToRole="Flor" />
+        </EntityType>
+        <EntityType Name="Agente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" />
+          <Property Name="SubTipo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Poliniza" Relationship="EjercicioMVC16Model.AgentePoliniza" FromRole="Agente" ToRole="Poliniza" />
+        </EntityType>
+        <Association Name="EspecieFlor">
+          <End Type="EjercicioMVC16Model.Especie" Role="Especie" Multiplicity="1" />
+          <End Type="EjercicioMVC16Model.Flor" Role="Flor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flor">
+              <PropertyRef Name="EspecieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Poliniza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reclamo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Flor" Relationship="EjercicioMVC16Model.FlorPoliniza" FromRole="Poliniza" ToRole="Flor" />
+          <Property Name="FlorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agente" Relationship="EjercicioMVC16Model.AgentePoliniza" FromRole="Poliniza" ToRole="Agente" />
+          <Property Name="AgenteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FlorPoliniza">
+          <End Type="EjercicioMVC16Model.Flor" Role="Flor" Multiplicity="1" />
+          <End Type="EjercicioMVC16Model.Poliniza" Role="Poliniza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poliniza">
+              <PropertyRef Name="FlorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AgentePoliniza">
+          <End Type="EjercicioMVC16Model.Agente" Role="Agente" Multiplicity="1" />
+          <End Type="EjercicioMVC16Model.Poliniza" Role="Poliniza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poliniza">
+              <PropertyRef Name="AgenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EjercicioMVC16ModelStoreContainer" CdmEntityContainer="EjercicioMVC16ModelContainer">
+    <EntitySetMapping Name="Flores">
+      <EntityTypeMapping TypeName="IsTypeOf(EjercicioMVC16Model.Flor)">
+        <MappingFragment StoreEntitySet="Flores">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Especies">
+      <EntityTypeMapping TypeName="IsTypeOf(EjercicioMVC16Model.Especie)">
+        <MappingFragment StoreEntitySet="Especies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EpcFloración" ColumnName="EpcFloración" />
+          <ScalarProperty Name="EstPlantacion" ColumnName="EstPlantacion" />
+          <ScalarProperty Name="TpSuelo" ColumnName="TpSuelo" />
+          <ScalarProperty Name="TmpExposicion" ColumnName="TmpExposicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agentes">
+      <EntityTypeMapping TypeName="IsTypeOf(EjercicioMVC16Model.Agente)">
+        <MappingFragment StoreEntitySet="Agentes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="SubTipo" ColumnName="SubTipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Poliniza">
+      <EntityTypeMapping TypeName="IsTypeOf(EjercicioMVC16Model.Poliniza)">
+        <MappingFragment StoreEntitySet="Poliniza">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Reclamo" ColumnName="Reclamo" />
+          <ScalarProperty Name="FlorId" ColumnName="FlorId" />
+          <ScalarProperty Name="AgenteId" ColumnName="AgenteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,42 @@
+﻿@model EjercicioMVC16.Models.Poliniza
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Poliniza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Reclamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reclamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Flor.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flor.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Agente.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agente.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
